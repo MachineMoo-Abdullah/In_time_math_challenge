@@ -155,8 +155,41 @@ dmypy.json
 cython_debug/
 
 # PyCharm
-#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#  and can be added to the global gitignore or merged into this file.  For a more nuclear
-#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+import random as r
+import time
+Operators = ["+", "-", "*", "/"]
+Min_operand = 3
+Max_operand = 12
+
+def generate_problem():
+    left = r.randint(Min_operand, Max_operand)
+    right = r.randint(Min_operand, Max_operand)
+    operator = r.choice(Operators)
+    expression = f"{left} {operator} {right}"
+    answer = eval(expression)
+    return expression, answer
+
+correct_answers = 0
+start_time = time.time()
+input("Are you ready to start (Press Enter) : ")
+print("-----------------------------")
+for i in range(10):
+    exp, ans = generate_problem()
+    while True:
+        inp = input(f"Problem #{i + 1}: {exp} = ")
+        try:
+            inp = float(inp) if "." in inp else int(inp)
+            if inp == round(ans, 2):  # Round answer for comparison
+                print("Right Answer!")
+                correct_answers +=1
+            else:
+                print("Wrong Answer!")
+            break
+        except ValueError:
+            print("Invalid input!")
+end_time = time.time()
+Total_time = end_time - start_time
+print("-----------------------------")
+print(f"Nice work! You attempted {correct_answers} correct problems in {round(Total_time,2)} seconds")
+
 #.idea/
